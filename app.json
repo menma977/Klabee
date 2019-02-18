@@ -23,18 +23,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.klabee"
-    },
-    "android": {
-      "package": "com.klabee",
-      "publishBundlePath": "android\\app\\src\\main\\assets\\shell-app.bundle",
-      "publishManifestPath": "android\\app\\src\\main\\assets\\shell-app-manifest.json"
-    },
-    "isDetached": true,
-    "detach": {
-      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v2.10.6-sdk32.0.0-83a07c97-312f-4bbf-8b19-5c609bc3c386.tar.gz"
-    },
-    "scheme": "exp2feb01a99ad8440a8d51c492bcf8adeb"
+      "supportsTablet": true
+    }
   }
 }
