@@ -1,13 +1,13 @@
 import React from 'react';
 export default class LoginController extends React.Component {
-    async DataLogin(setUsername, setPassword, setLong, setLat) {
+    async DataLogin(setUsername, setPassword) {
         var url, body, errorResponse;
         url = "http://decareptiles.com/api/index.php";
         body = "a=Login" +
             "&username=" + setUsername +
             "&password=" + setPassword +
-            "&long=" + setLong +
-            "&lat=" + setLat;
+            "&long=" + 0 +
+            "&lat=" + 0;
         errorResponse = { Status: 1, Pesan: 'Internet tidak setabil mohon ulangi lagi' };
         try {
             const response = await fetch(url, {
