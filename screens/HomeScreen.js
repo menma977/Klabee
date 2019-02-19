@@ -32,7 +32,7 @@ export default class HomeScreen extends React.Component {
       </View>);
     }
     return (<View style={Styles.container}>
-      <Header {...this.props} iconNameIos='ios-home' iconNameAndroid='md-home'/>
+      <Header {...this.props} iconName='home'/>
       <View style={[Styles.container, Styles.justifyContentCenter]}></View>
     </View>);
   }

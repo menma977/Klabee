@@ -5,10 +5,10 @@ import KlabeeModel from '../components/model/KlabeeModel';
 import TabBarIcon from '../components/TabBarIcon';
 import Styles from '../constants/Styles';
 import HomeScreen from '../screens/HomeScreen';
-import SendBoxScreen from '../screens/SendBoxScreen';
-import VaccineScreen from '../screens/VaccineScreen';
-import DeadScreen from '../screens/DeadScreen';
+import AddClientScreen from '../screens/AddClientScreen';
+import SendBeeScreen from '../screens/SendBeeScreen';
 import {View} from 'native-base';
+import { Icon } from 'expo';
 
 const HeaderPatch = require('../assets/images/icon.png')
 
@@ -46,43 +46,30 @@ export default createDrawerNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: {
-      drawerIcon: ({tintColor}) => (<TabBarIcon name={Platform.OS === 'ios'
-          ? `ios-home`
-          : 'md-home'} size={25} style={{
-          color: tintColor
-        }}/>)
+      drawerLabel: 'Home',
+      drawerIcon: ({tintColor}) => (
+        <Icon.Ionicons name={Platform.OS === 'ios'? `ios-home`: 'md-home'} size={20} style={{color: tintColor}}/>
+      )
     }
   },
-  KirimKandang: {
-    screen: SendBoxScreen,
+  AddClient: {
+    screen: AddClientScreen,
     navigationOptions: {
-      drawerIcon: ({tintColor}) => (<TabBarIcon name={Platform.OS === 'ios'
-          ? `ios-basket`
-          : 'md-basket'} size={25} style={{
-          color: tintColor
-        }}/>)
+      drawerLabel: 'Add Client',
+      drawerIcon: ({tintColor}) => (
+        <Icon.FontAwesome name={'user-plus'} size={20} style={{color: tintColor}}/>
+      )
     }
   },
-  Vaksin: {
-    screen: VaccineScreen,
+  SendBee: {
+    screen: SendBeeScreen,
     navigationOptions: {
-      drawerIcon: ({tintColor}) => (<TabBarIcon name={Platform.OS === 'ios'
-          ? `ios-medkit`
-          : 'md-medkit'} size={25} style={{
-          color: tintColor
-        }}/>)
+      drawerLabel: 'Kirim Stup',
+      drawerIcon: ({tintColor}) => (
+        <Icon.FontAwesome name={'archive'} size={20} style={{color: tintColor}}/>
+      )
     }
   },
-  Mati: {
-    screen: DeadScreen,
-    navigationOptions: {
-      drawerIcon: ({tintColor}) => (<TabBarIcon name={Platform.OS === 'ios'
-          ? `ios-pulse`
-          : 'md-pulse'} size={25} style={{
-          color: tintColor
-        }}/>)
-    }
-  }
 }, {
   initialRouteName: 'Home',
   contentComponent: CustomDrowerNavigator,

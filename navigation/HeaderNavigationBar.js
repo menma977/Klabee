@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, TouchableHighlight, StyleSheet, Platform, AsyncStorage} from 'react-native';
+import { Icon } from 'expo';
 import Styles from '../constants/Styles';
 import TabBarIcon from '../components/TabBarIcon';
 import KlabeeModel from '../components/model/KlabeeModel';
@@ -28,11 +29,7 @@ export default class HeaderNavigationBar extends Component {
             }}/>
         </TouchableHighlight>
         <View style={[styles.sizePerRowHeader, Styles.justifyContentCenter, Styles.alignSelfCenter]}>
-          <TabBarIcon name={Platform.OS === 'ios'
-              ? this.props.iconNameIos
-              : this.props.iconNameAndroid} size={25} style={{
-              color: '#edba21'
-            }}/>
+          <Icon.FontAwesome name={this.props.iconName} size={25} style={{color: '#edba21'}}/>
         </View>
         <TouchableHighlight style={[styles.sizePerRowHeader, Styles.justifyContentEnd, Styles.alignSelfCenter]} onPress={this.onLogout.bind(this)} underlayColor='#c79978'>
           <TabBarIcon name={Platform.OS === 'ios'

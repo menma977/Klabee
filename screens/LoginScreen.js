@@ -26,8 +26,8 @@ export default class LoginScreen extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
-      username: '',
-      password: ''
+      username : '',
+      password : ''
     }
   }
 
@@ -84,10 +84,10 @@ export default class LoginScreen extends React.Component {
         </View>
       </View>);
     } else {
-      return (<ScrollView>
-        <KeyboardAvoidingView style={{
-            flex: 1
-          }} behavior="padding">
+      return (<KeyboardAvoidingView behavior="padding" style={{
+          flex: 1
+        }}>
+        <ScrollView>
           <Container style={{
               backgroundColor: '#69594d'
             }}>
@@ -102,16 +102,16 @@ export default class LoginScreen extends React.Component {
                   alignSelf: 'center'
                 }}/>
               <Form style={[Styles.alignItemCenter]}>
-                <Item floatingLabel>
+                <Item floatingLabel="floatingLabel">
                   <Label style={[Styles.colorOrange]}>Username</Label>
                   <Input style={Styles.colorOrange} value={this.state.username} onChangeText={(username) => this.setState({username})}/>
                 </Item>
-                <Item floatingLabel>
+                <Item floatingLabel="floatingLabel">
                   <Label style={[Styles.colorOrange]}>Password</Label>
                   <Input style={Styles.colorOrange} onChangeText={(password) => this.setState({password})} secureTextEntry={true} onSubmitEditing={this.gotToDashboard.bind(this)}/>
                 </Item>
               </Form>
-              <Button warning rounded block style={{
+              <Button warning="warning" rounded="rounded" block="block" style={{
                   top: 50
                 }} onPress={this.gotToDashboard.bind(this)}>
                 <Icon.AntDesign name='login' size={25} color='#fff'/>
@@ -119,8 +119,8 @@ export default class LoginScreen extends React.Component {
               </Button>
             </Content>
           </Container>
-        </KeyboardAvoidingView>
-      </ScrollView>);
+        </ScrollView>
+      </KeyboardAvoidingView>);
     }
   }
 }
