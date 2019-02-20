@@ -24,15 +24,19 @@ export default class AddClientScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading      : '',
-      username       : '',
-      password       : '',
+      isLoading: true,
+      username: '',
+      password: '',
       confrimPassword: '',
-      name           : '',
-      address        : '',
-      email          : '',
-      hp             : ''
+      name: '',
+      address: '',
+      email: '',
+      hp: ''
     };
+  }
+
+  componentDidMount() {
+    this.setState({isLoading: false})
   }
 
   password() {
@@ -86,42 +90,40 @@ export default class AddClientScreen extends React.Component {
     } else {
       return (<KeyboardAvoidingView style={{
           flex: 1
-        }} behavior='padding' enabled="enabled">
-        <ScrollView>
-          <Container>
-            <Header {...this.props} iconName='user-plus'/>
-            <Content>
-              <Card>
-                <CardItem>
-                  <Body>
-                    <Item>
-                      <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Email' value={this.state.email} onChangeText={(value) => this.setState({email: value})}/>
-                    </Item>
-                    <Item>
-                      <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Username' value={this.state.username} onChangeText={(value) => this.setState({username: value})}/>
-                    </Item>
-                    {this.password(this)}
-                    <Item>
-                      <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Telfon yang dapat di hubungi' value={this.state.hp} onChangeText={(value) => this.setState({hp: value})}/>
-                    </Item>
-                    <Item>
-                      <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Alamat' value={this.state.address} onChangeText={(value) => this.setState({address: value})}/>
-                    </Item>
-                  </Body>
-                </CardItem>
-                <CardItem footer>
-                  <Button warning block rounded style={{
-                      flex: 1,
-                      alignItem: 'center'
-                    }}>
-                    <Icon.FontAwesome name='user-plus' size={25} color='#fff'/>
-                    <Text>Daftar</Text>
-                  </Button>
-                </CardItem>
-              </Card>
-            </Content>
-          </Container>
-        </ScrollView>
+        }} behavior='padding' enabled>
+        <Container>
+          <Header {...this.props} iconName='user-plus'/>
+          <Content>
+            <Card>
+              <CardItem>
+                <Body>
+                  <Item>
+                    <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Email' value={this.state.email} onChangeText={(value) => this.setState({email: value})}/>
+                  </Item>
+                  <Item>
+                    <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Username' value={this.state.username} onChangeText={(value) => this.setState({username: value})}/>
+                  </Item>
+                  {this.password(this)}
+                  <Item>
+                    <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Telfon yang dapat di hubungi' value={this.state.hp} onChangeText={(value) => this.setState({hp: value})}/>
+                  </Item>
+                  <Item>
+                    <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Alamat' value={this.state.address} onChangeText={(value) => this.setState({address: value})}/>
+                  </Item>
+                </Body>
+              </CardItem>
+              <CardItem footer>
+                <Button warning block rounded style={{
+                    flex: 1,
+                    alignItem: 'center'
+                  }}>
+                  <Icon.FontAwesome name='user-plus' size={25} color='#fff'/>
+                  <Text>Daftar</Text>
+                </Button>
+              </CardItem>
+            </Card>
+          </Content>
+        </Container>
       </KeyboardAvoidingView>);
     }
   }
