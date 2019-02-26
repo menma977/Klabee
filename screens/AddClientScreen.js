@@ -19,6 +19,9 @@ import {
 import {Icon} from 'expo';
 import Header from '../navigation/HeaderNavigationBar';
 import Styles from '../constants/Styles';
+import Config from '../components/model/Config';
+let Configuration = new Config();
+import ProcessController from '../components/controller/ProcessController';
 
 export default class AddClientScreen extends React.Component {
   constructor(props) {
@@ -31,7 +34,9 @@ export default class AddClientScreen extends React.Component {
       name: '',
       address: '',
       email: '',
-      hp: ''
+      hp: '',
+      bank: '',
+      codeBank: ''
     };
   }
 
@@ -39,15 +44,46 @@ export default class AddClientScreen extends React.Component {
     this.setState({isLoading: false})
   }
 
+  componentWillUnmount() {
+    this.setState({isLoading: true})
+  }
+
+  async onSave() {
+    if(this.state.username == '') {
+      Configuration.newAlert(2, "Username tidak boleh kosong", 5000, "bottom");
+    } else if (this.state.password == '' || this.state.password != this.state.confrimPassword) {
+      Configuration.newAlert(2, "Password tidak boleh kosong Atau berbeda dari Konfirmasi Passowrd", 5000, "bottom");
+    } else if (this.state.name == '') {
+      Configuration.newAlert(2, "Nama tidak boleh kosong", 5000, "bottom");
+    } else if (this.state.address == '') {
+      Configuration.newAlert(2, "Alamat tidak boleh kosong", 5000, "bottom");
+    } else if (this.state.email == '') {
+      Configuration.newAlert(2, "Email tidak boleh kosong", 5000, "bottom");
+    } else if (this.state.hp == '') {
+      Configuration.newAlert(2, "No HP tidak boleh kosong", 5000, "bottom");
+    } else if (this.state.bank == '') {
+      Configuration.newAlert(2, "Bank tidak boleh kosong", 5000, "bottom");
+    } else if (this.state.codeBank == '') {
+      Configuration.newAlert(2, "No Rekening tidak boleh kosong", 5000, "bottom");
+    } else {
+      let data = await ProcessController.prototype.saveClinet(this.state.username,this.state.password,this.state.name,this.state.address,this.state.email,this.state.hp,this.state.bank,this.state.codeBank);
+      if(data.Status == 1) {
+        Configuration.newAlert(3, "Gagal menyimpan Clinet", 0, "bottom");
+      } else {
+        Configuration.newAlert(1, "Berhasil menyimpan Clinet", 0, "bottom");
+      }
+    }
+  }
+
   password() {
     if (this.state.password == this.state.confrimPassword && this.state.password != '' && this.state.confrimPassword != '') {
       return (<View style={{
           width: '100%'
         }}>
-        <Item success="success">
+        <Item success>
           <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Password' value={this.state.password} onChangeText={(value) => this.setState({password: value})} secureTextEntry={true}/>
         </Item>
-        <Item success="success">
+        <Item success>
           <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Konfirmasi Password' value={this.state.confrimPassword} onChangeText={(value) => this.setState({confrimPassword: value})} secureTextEntry={true}/>
         </Item>
       </View>);
@@ -55,10 +91,10 @@ export default class AddClientScreen extends React.Component {
       return (<View style={{
           width: '100%'
         }}>
-        <Item error="error">
+        <Item error>
           <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Password' value={this.state.password} onChangeText={(value) => this.setState({password: value})} secureTextEntry={true}/>
         </Item>
-        <Item error="error">
+        <Item error>
           <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Konfirmasi Password' value={this.state.confrimPassword} onChangeText={(value) => this.setState({confrimPassword: value})} secureTextEntry={true}/>
         </Item>
       </View>);
@@ -98,17 +134,26 @@ export default class AddClientScreen extends React.Component {
               <CardItem>
                 <Body>
                   <Item>
-                    <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Email' value={this.state.email} onChangeText={(value) => this.setState({email: value})}/>
+                    <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Email' value={this.state.email} onChangeText={(value) => this.setState({email: value})} keyboardType='email-address'/>
                   </Item>
                   <Item>
                     <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Username' value={this.state.username} onChangeText={(value) => this.setState({username: value})}/>
                   </Item>
+                  <Item>
+                    <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Nama' value={this.state.name} onChangeText={(value) => this.setState({name: value})}/>
+                  </Item>
                   {this.password(this)}
                   <Item>
-                    <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Telfon yang dapat di hubungi' value={this.state.hp} onChangeText={(value) => this.setState({hp: value})}/>
+                    <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Telfon yang dapat di hubungi' value={this.state.hp} onChangeText={(value) => this.setState({hp: value})} keyboardType='phone-pad'/>
                   </Item>
                   <Item>
                     <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Alamat' value={this.state.address} onChangeText={(value) => this.setState({address: value})}/>
+                  </Item>
+                  <Item>
+                    <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='Bank' value={this.state.bank} onChangeText={(value) => this.setState({bank: value})}/>
+                  </Item>
+                  <Item>
+                    <Input style={Styles.colorOrange} placeholderTextColor='orange' placeholder='No Rekening' value={this.state.codeBank} onChangeText={(value) => this.setState({codeBank: value})} keyboardType='decimal-pad'/>
                   </Item>
                 </Body>
               </CardItem>
@@ -116,7 +161,7 @@ export default class AddClientScreen extends React.Component {
                 <Button warning block rounded style={{
                     flex: 1,
                     alignItem: 'center'
-                  }}>
+                  }} onPress={this.onSave.bind(this)}>
                   <Icon.FontAwesome name='user-plus' size={25} color='#fff'/>
                   <Text>Daftar</Text>
                 </Button>

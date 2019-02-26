@@ -14,12 +14,10 @@ import {
 import Styles from '../constants/Styles';
 import Config from '../components/model/Config';
 import LoginController from '../components/controller/LoginController';
-import LocationController from '../components/controller/LocationController';
-import {Icon} from 'expo';
 import KlabeeModel from '../components/model/KlabeeModel';
+import {Icon} from 'expo';
 const Configuration = new Config();
 const Login = new LoginController();
-const getLocationController = new LocationController();
 
 export default class LoginScreen extends React.Component {
   constructor(props) {
@@ -32,18 +30,10 @@ export default class LoginScreen extends React.Component {
   }
 
   async componentDidMount() {
-    let username,
-      password;
-    await AsyncStorage.getItem('username', (error, result) => {
-      if (result) {
-        username = result;
-      }
-    });
-    await AsyncStorage.getItem('password', (error, result) => {
-      if (result) {
-        password = result;
-      }
-    });
+    let username = await AsyncStorage.getItem('username');
+    let password = await AsyncStorage.getItem('password');
+    KlabeeModel.prototype.setUsername(username);
+    KlabeeModel.prototype.setPassword(password);
     let data = await Login.DataLogin(username, password);
     if (data.Status == 0) {
       setTimeout(() => {
@@ -102,16 +92,16 @@ export default class LoginScreen extends React.Component {
                   alignSelf: 'center'
                 }}/>
               <Form style={[Styles.alignItemCenter]}>
-                <Item floatingLabel="floatingLabel">
+                <Item floatingLabel>
                   <Label style={[Styles.colorOrange]}>Username</Label>
                   <Input style={Styles.colorOrange} value={this.state.username} onChangeText={(username) => this.setState({username})}/>
                 </Item>
-                <Item floatingLabel="floatingLabel">
+                <Item floatingLabel>
                   <Label style={[Styles.colorOrange]}>Password</Label>
                   <Input style={Styles.colorOrange} onChangeText={(password) => this.setState({password})} secureTextEntry={true} onSubmitEditing={this.gotToDashboard.bind(this)}/>
                 </Item>
               </Form>
-              <Button warning="warning" rounded="rounded" block="block" style={{
+              <Button warning rounded block style={{
                   top: 50
                 }} onPress={this.gotToDashboard.bind(this)}>
                 <Icon.AntDesign name='login' size={25} color='#fff'/>

@@ -46,7 +46,7 @@ export default class Config extends React.Component {
             type: 'image/jpg',
             name: date.getDate() + "-" + date.getHours() + "-" + date.getMinutes() + "-" + date.getSeconds() + nameFile[11],
         });
-        const url = "http://picotele.com/neomitra/javacoin/uploadGambar.php"
+        const url = "http://picotele.com/neomitra/javacoin/klabee.php"
         return await fetch(url, {
             method: 'POST',
             headers: new Headers({
