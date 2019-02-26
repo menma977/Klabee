@@ -50,27 +50,27 @@ export default class AddClientScreen extends React.Component {
 
   async onSave() {
     if(this.state.username == '') {
-      Configuration.newAlert(2, "Username tidak boleh kosong", 5000, "bottom");
+      Configuration.newAlert(2, "Username tidak boleh kosong", 5000, "top");
     } else if (this.state.password == '' || this.state.password != this.state.confrimPassword) {
       Configuration.newAlert(2, "Password tidak boleh kosong Atau berbeda dari Konfirmasi Passowrd", 5000, "bottom");
     } else if (this.state.name == '') {
-      Configuration.newAlert(2, "Nama tidak boleh kosong", 5000, "bottom");
+      Configuration.newAlert(2, "Nama tidak boleh kosong", 5000, "top");
     } else if (this.state.address == '') {
-      Configuration.newAlert(2, "Alamat tidak boleh kosong", 5000, "bottom");
+      Configuration.newAlert(2, "Alamat tidak boleh kosong", 5000, "top");
     } else if (this.state.email == '') {
-      Configuration.newAlert(2, "Email tidak boleh kosong", 5000, "bottom");
+      Configuration.newAlert(2, "Email tidak boleh kosong", 5000, "top");
     } else if (this.state.hp == '') {
-      Configuration.newAlert(2, "No HP tidak boleh kosong", 5000, "bottom");
+      Configuration.newAlert(2, "No HP tidak boleh kosong", 5000, "top");
     } else if (this.state.bank == '') {
-      Configuration.newAlert(2, "Bank tidak boleh kosong", 5000, "bottom");
+      Configuration.newAlert(2, "Bank tidak boleh kosong", 5000, "top");
     } else if (this.state.codeBank == '') {
-      Configuration.newAlert(2, "No Rekening tidak boleh kosong", 5000, "bottom");
+      Configuration.newAlert(2, "No Rekening tidak boleh kosong", 5000, "top");
     } else {
       let data = await ProcessController.prototype.saveClinet(this.state.username,this.state.password,this.state.name,this.state.address,this.state.email,this.state.hp,this.state.bank,this.state.codeBank);
       if(data.Status == 1) {
-        Configuration.newAlert(3, "Gagal menyimpan Clinet", 0, "bottom");
+        Configuration.newAlert(3, data.Pesan, 5000, "top");
       } else {
-        Configuration.newAlert(1, "Berhasil menyimpan Clinet", 0, "bottom");
+        Configuration.newAlert(1, data.Pesan, 5000, "top");
       }
     }
   }

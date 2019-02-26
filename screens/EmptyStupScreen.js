@@ -69,7 +69,7 @@ export default class EmptyStupScreen extends React.Component {
     });
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     let camera = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
     this.setState({
       isCameraPermission: camera.status == 'granted',
@@ -78,7 +78,7 @@ export default class EmptyStupScreen extends React.Component {
     if (!this.state.isCameraPermission) {
       Configuration.newAlert(2, "Anda Tidak mengijinkan CAMERA untuk berjalan mohon izinkan CAMERA untuk aktif", 0, "bottom");
     }
-    await setInterval(async () => {
+    this.getLocation = await setInterval(async () => {
       let locationData = await getLocationController.getLocation();
       this.setState({
           isLocationPermission: locationData.isLocationActive,
@@ -87,6 +87,10 @@ export default class EmptyStupScreen extends React.Component {
       })
     }, 10000);
     this.setState({isLoading: false})
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.getLocation);
   }
 
   async snapPhoto() {

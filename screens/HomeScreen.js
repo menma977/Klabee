@@ -121,7 +121,7 @@ export default class HomeScreen extends React.Component {
       <Content>
         <Card>
           <CardItem header>
-            <Text>Data User</Text>
+            <Text>Data Agen</Text>
           </CardItem>
           <CardItem>
             <Body>
@@ -133,16 +133,18 @@ export default class HomeScreen extends React.Component {
               <Text>{'\n'}</Text>
               <Row>
                 <Col>
+                  <Label>Saldo :</Label>
                   <Button info>
                     <Text>
-                      Saldo : Rp.{rupiah}
+                      Rp.{rupiah ? rupiah : 0}
                     </Text>
                   </Button>
                 </Col>
                 <Col>
+                  <Label>Bonus :</Label>
                   <Button primary>
                     <Text>
-                      Bonus: Rp.{bonus}
+                      Rp.{bonus ? bonus : 0}
                     </Text>
                   </Button>
                 </Col>

@@ -93,7 +93,14 @@ export default class ProcessController extends React.Component {
       dataQRCode += "&notrx" + parseInt(key + 1) + "=" + value;
     })
     url = "https://www.klabee.com/api/index.php ";
-    body = "a=KirimStup" + dataQRCode + "&jumlah=" + setQRCode.length + "&gambar=" + setImageUrl + "&long=" + setLong + "&lat=" + setLat + "&user=" + user + "&client=" + clinet + "&saldo=" + balance;
+    body = "a=KirimStup" + dataQRCode +
+    "&jumlah=" + setQRCode.length +
+    "&gambar=" + setImageUrl +
+    "&long=" + setLong +
+    "&lat=" + setLat +
+    "&user=" + user +
+    "&client=" + clinet +
+    "&saldo=" + balance;
     errorResponse = {
       Status: 1,
       Pesan: 'Internet tidak setabil mohon ulangi lagi'
@@ -202,6 +209,33 @@ export default class ProcessController extends React.Component {
     "&gambar=" + setImageUrl +
     "&long=" + setLong +
     "&lat=" + setLat;
+    errorResponse = {
+      Status: 1,
+      Pesan: 'Internet tidak setabil mohon ulangi lagi'
+    };
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'}),
+        body: body
+      });
+      const responseJson = await response.json();
+      if (responseJson) {
+        return responseJson;
+      } else {
+        return errorResponse;
+      }
+    } catch (error) {
+      return errorResponse;
+    }
+  }
+
+  async validate(setQRCode, setUsername) {
+    let url, body, errorResponse;
+    url = "https://www.klabee.com/api/index.php";
+    body = "a=CekStupKosong" +
+    "&username=" + setUsername +
+    "&kode=" + setQRCode;
     errorResponse = {
       Status: 1,
       Pesan: 'Internet tidak setabil mohon ulangi lagi'

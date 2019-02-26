@@ -40,8 +40,8 @@ export default class SendBeeScreen extends React.Component {
       isLoading: true,
       isSell: false,
       isButton: false,
-      isCameraPermission: true,
-      isLocationPermission: true,
+      isCameraPermission: false,
+      isLocationPermission: false,
       pickerVisible: false,
       type: '',
       user: '',
@@ -66,7 +66,7 @@ export default class SendBeeScreen extends React.Component {
     if (!this.state.isCameraPermission) {
       Configuration.newAlert(2, "Anda Tidak mengijinkan CAMERA untuk berjalan mohon izinkan CAMERA untuk aktif", 0, "bottom");
     }
-    await setInterval(async () => {
+    this.getLocation = await setInterval(async () => {
       let locationData = await getLocationController.getLocation();
       this.setState({
           isLocationPermission: locationData.isLocationActive,
@@ -80,6 +80,10 @@ export default class SendBeeScreen extends React.Component {
     KlabeeModel.prototype.setBalance(data.Saldo);
     await this.getClinet();
     this.setState({isLoading: false})
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.getLocation);
   }
 
   async makeNew() {
@@ -135,21 +139,27 @@ export default class SendBeeScreen extends React.Component {
     }
   }
 
-  handleBarCodeScanned = ({type, data}) => {
-    if((KlabeeModel.prototype.getBalance() - ((this.state.dataQR.length + 1) * 250000)) < 0) {
-      Configuration.newAlert(2, "Saldo anda kurang untuk menambah Stup", 0, "bottom");
-      this.setState({switchQRCode: false});
-    } else {
-      let found = this.state.dataQR.find(function(element) {
-        return element == data;
-      });
-      if (found) {
-        this.state.dataQR.splice(this.state.dataQR.indexOf(data), 1);
-        this.state.dataQR.push(data);
+  async handleBarCodeScanned({type, data}) {
+    let username    = KlabeeModel.prototype.getUsername().toUpperCase();
+    let dataRespone = await ProcessController.prototype.validate(data, username);
+    if(dataRespone.Status == 0) {
+      if((KlabeeModel.prototype.getBalance() - ((this.state.dataQR.length + 1) * 250000)) < 0) {
+        Configuration.newAlert(2, "Saldo anda kurang untuk menambah Stup", 10000, "bottom");
+        this.setState({switchQRCode: false});
       } else {
-        this.state.dataQR.push(data);
+        let found = this.state.dataQR.find(function(element) {
+          return element == data;
+        });
+        if (found) {
+          this.state.dataQR.splice(this.state.dataQR.indexOf(data), 1);
+          this.state.dataQR.push(data);
+        } else {
+          this.state.dataQR.push(data);
+        }
+        this.setState({sell: this.state.dataQR.length * 250000, switchQRCode: false});
       }
-      this.setState({sell: this.state.dataQR.length * 250000, switchQRCode: false});
+    } else {
+      Configuration.newAlert(2, "Barcode belum terdafter", 5000, "top");
     }
   }
 
@@ -175,19 +185,18 @@ export default class SendBeeScreen extends React.Component {
 
   async sendBee() {
     this.setState({isLoading: true});
-    let username      = KlabeeModel.prototype.getUsername();
+    let username      = KlabeeModel.prototype.getUsername().toUpperCase();
     let balance       = String(KlabeeModel.prototype.getBalance() - this.state.sell);
     let sendImageData = await Configuration.sendImage(this.state.pictureData);
     if (sendImageData.kode == 0) {
       let data = await ProcessController.prototype.SendBee(username, this.state.user, this.state.dataQR, sendImageData.taregetFile, this.state.longitude, this.state.latitude, balance);
-      console.log(data);
       if(data.Status == 1) {
         Configuration.newAlert(2, data.Pesan, 0, "bottom");
         this.setState({
           dataQR: [],
           sell: 0,
         });
-        this.setState({isLoading: false});
+        this.setState({isSell: false, isLoading: false});
       } else {
         Configuration.newAlert(1, "Berhasil menjual Stup", 0, "bottom");
         this.setState({
@@ -269,7 +278,7 @@ export default class SendBeeScreen extends React.Component {
           </View>
       );
     } else if(this.state.switchQRCode) {
-      return (<BarCodeScanner onBarCodeScanned={this.handleBarCodeScanned} style={[StyleSheet.absoluteFill, styles.container]}>
+      return (<BarCodeScanner onBarCodeScanned={this.handleBarCodeScanned.bind(this)} style={[StyleSheet.absoluteFill, styles.container]}>
         <View style={styles.layerTop} />
         <View style={styles.layerCenter}>
           <View style={styles.layerLeft} />

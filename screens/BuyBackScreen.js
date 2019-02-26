@@ -62,7 +62,7 @@ export default class BuyBackScreen extends React.Component {
     });
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     let camera = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
     this.setState({
       isCameraPermission: camera.status == 'granted',
