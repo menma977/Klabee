@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, KeyboardAvoidingView, TouchableOpacity, Image, AsyncStorage, StyleSheet, Dimensions } from 'react-native';
+import { View, KeyboardAvoidingView, TouchableOpacity, Image, AsyncStorage, StyleSheet } from 'react-native';
 import {
   Container,
   Content,
@@ -17,7 +17,7 @@ import {
   Left,
   Right
 } from 'native-base';
-import { Camera, Permissions, BarCodeScanner, Location, Icon } from 'expo';
+import { Camera, Permissions, BarCodeScanner, Icon } from 'expo';
 import ModalFilterPicker from 'react-native-modal-filter-picker';
 import Header from '../navigation/HeaderNavigationBar';
 import Styles from '../constants/Styles';
@@ -27,8 +27,6 @@ import LocationController from '../components/controller/LocationController';
 let getLocationController = new LocationController();
 import KlabeeModel from '../components/model/KlabeeModel';
 import ProcessController from '../components/controller/ProcessController';
-
-const { width } = Dimensions.get( 'window' );
 
 export default class SendBeeScreen extends React.Component {
   constructor ( props ) {
@@ -55,7 +53,11 @@ export default class SendBeeScreen extends React.Component {
   }
 
   async componentDidMount () {
-    let camera = await Permissions.askAsync( Permissions.CAMERA, Permissions.CAMERA_ROLL );
+    let camera = null;
+    let locationData = null;
+    let username = null;
+    let data = null;
+    camera = await Permissions.askAsync( Permissions.CAMERA, Permissions.CAMERA_ROLL );
     this.setState( {
       isCameraPermission: camera.status == 'granted',
       type: Camera.Constants.Type.back
@@ -64,18 +66,18 @@ export default class SendBeeScreen extends React.Component {
       Configuration.newAlert( 2, "Anda Tidak mengijinkan CAMERA untuk berjalan mohon izinkan CAMERA untuk aktif", 0, "bottom" );
     }
     this.getLocation = await setInterval( async () => {
-      let locationData = await getLocationController.getLocation();
+      locationData = await getLocationController.getLocation();
       this.setState( {
         isLocationPermission: locationData.isLocationActive,
         latitude: locationData.latitude,
         longitude: locationData.longitude
       } )
     }, 10000 );
-    let username = await AsyncStorage.getItem( 'username' );
-    let data = await ProcessController.prototype.Balance( username );
+    username = await AsyncStorage.getItem( 'username' );
+    data = await ProcessController.prototype.Balance( username );
     await AsyncStorage.setItem( 'balance', data.Saldo );
     KlabeeModel.prototype.setBalance( data.Saldo );
-    await this.getClinet();
+    await this.getClient();
     this.setState( { isLoading: false } )
   }
 
@@ -107,7 +109,7 @@ export default class SendBeeScreen extends React.Component {
     this.setState( { isLoading: false } );
   }
 
-  async getClinet () {
+  async getClient () {
     this.state.client = [];
     let data = await ProcessController.prototype.getClient( await AsyncStorage.getItem( 'username' ) );
     data.map( ( value, key ) => {
@@ -153,10 +155,12 @@ export default class SendBeeScreen extends React.Component {
         } else {
           this.state.dataQR.push( data );
         }
-        this.setState( { sell: this.state.dataQR.length * 250000, switchQRCode: false } );
+        Configuration.newAlert( 2, "Barcode Telah Tersimpan", 1000, "top" );
+        this.setState( { sell: this.state.dataQR.length * 250000 } );
+        // this.setState( { sell: this.state.dataQR.length * 250000, switchQRCode: false } );
       }
     } else {
-      Configuration.newAlert( 2, "Barcode belum terdafter", 5000, "top" );
+      Configuration.newAlert( 2, dataRespone.Pesan, 5000, "top" );
     }
   }
 
@@ -186,14 +190,27 @@ export default class SendBeeScreen extends React.Component {
     let balance = String( KlabeeModel.prototype.getBalance() - this.state.sell );
     let sendImageData = await Configuration.sendImage( this.state.pictureData );
     if ( sendImageData.kode == 0 ) {
-      let data = await ProcessController.prototype.SendBee( username, this.state.user, this.state.dataQR, sendImageData.taregetFile, this.state.longitude, this.state.latitude, balance );
-      if ( data.Status == 1 ) {
-        Configuration.newAlert( 2, data.Pesan, 0, "bottom" );
+      let error = 0;
+      let data = null;
+      let setCount = this.state.dataQR.length;
+      console.log( this.state.dataQR.length );
+      for ( let i = 0; i < this.state.dataQR.length; i++ ) {
+        data = await ProcessController.prototype.SendBee( username, this.state.user, this.state.dataQR[ i ], setCount
+          , sendImageData.taregetFile, this.state.longitude, this.state.latitude, balance );
+        if ( data.Status == 1 ) {
+          error += 1;
+        } else {
+          error += 0;
+        }
+      }
+      if ( error > 0 ) {
+        Configuration.newAlert( 2, error + 'QR Code gagal di kirim, cek stup untuk ngenetahui mana data yang belum terkirim', 0, "bottom" );
         this.setState( {
           dataQR: [],
           sell: 0,
         } );
         this.setState( { isSell: false, isLoading: false } );
+        this.componentDidMount();
       } else {
         Configuration.newAlert( 1, "Berhasil menjual Stup", 0, "bottom" );
         this.setState( {
@@ -204,6 +221,8 @@ export default class SendBeeScreen extends React.Component {
         } );
         KlabeeModel.prototype.setBalance( balance );
         this.setState( { isSell: false, isLoading: false } );
+        // this.componentDidMount();
+        this.props.navigation.navigate( 'Login' );
       }
     } else {
       Configuration.newAlert( 3, 'Terjadi keslasahan saat mengupload gambar', 0, "bottom" );
@@ -496,7 +515,7 @@ export default class SendBeeScreen extends React.Component {
                       <Button success block rounded style={ {
                         flex: 1,
                         alignItem: 'center'
-                      } } onPress={ this.getClinet.bind( this ) }>
+                      } } onPress={ this.getClient.bind( this ) }>
                         <Icon.MaterialIcons name='update' size={ 25 } color='#fff' />
                         <Text>Update</Text>
                       </Button>

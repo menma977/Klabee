@@ -1,9 +1,10 @@
 import React from 'react';
 export default class ProcessController extends React.Component {
-  async saveClinet ( username, password, name, address, email, hp, bank, codeBank ) {
+  async saveClinet ( sponsor, username, password, name, address, email, hp, bank, codeBank ) {
     let url, body, errorResponse;
     url = "https://www.klabee.com/api/index.php";
     body = "a=AddClient" +
+      "&sponsor=" + sponsor +
       "&username=" + username +
       "&password=" + password +
       "&alamat=" + address +
@@ -84,17 +85,18 @@ export default class ProcessController extends React.Component {
     }
   }
 
-  async SendBee ( user, clinet, setQRCode, setImageUrl, setLong, setLat, balance ) {
+  async SendBee ( user, clinet, setQRCode, setCount, setImageUrl, setLong, setLat, balance ) {
     let url,
       body,
       errorResponse,
       dataQRCode;
-    setQRCode.map( ( value, key ) => {
-      dataQRCode += "&notrx" + parseInt( key + 1 ) + "=" + value;
-    } )
+    // setQRCode.map( ( value, key ) => {
+    //   dataQRCode += "&notrx" + parseInt( key + 1 ) + "=" + value;
+    // } )
     url = "https://www.klabee.com/api/index.php ";
-    body = "a=KirimStup" + dataQRCode +
-      "&jumlah=" + setQRCode.length +
+    body = "a=KirimStup" +
+      "&notrx1=" + setQRCode +
+      "&jumlah=" + 1 +
       "&gambar=" + setImageUrl +
       "&long=" + setLong +
       "&lat=" + setLat +
