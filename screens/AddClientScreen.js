@@ -70,6 +70,17 @@ export default class AddClientScreen extends React.Component {
       if ( data.Status == 1 ) {
         Configuration.newAlert( 3, data.Pesan, 5000, "top" );
       } else {
+        this.setState( {
+          username: '',
+          password: '',
+          confrimPassword: '',
+          name: '',
+          address: '',
+          email: '',
+          hp: '',
+          bank: '',
+          codeBank: ''
+        } )
         Configuration.newAlert( 1, data.Pesan, 5000, "top" );
       }
     }

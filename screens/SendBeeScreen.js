@@ -113,10 +113,12 @@ export default class SendBeeScreen extends React.Component {
     this.state.client = [];
     let data = await ProcessController.prototype.getClient( await AsyncStorage.getItem( 'username' ) );
     data.map( ( value, key ) => {
-      this.state.client.push( {
-        key: value.User,
-        label: value.User
-      } );
+      if ( value.User != 'Default' ) {
+        this.state.client.push( {
+          key: value.User,
+          label: value.User
+        } );
+      }
     } );
   }
 
@@ -155,12 +157,12 @@ export default class SendBeeScreen extends React.Component {
         } else {
           this.state.dataQR.push( data );
         }
-        Configuration.newAlert( 2, "Barcode Telah Tersimpan", 1000, "top" );
+        Configuration.newAlert( 1, "Barcode Telah Tersimpan", 1000, "top" );
         this.setState( { sell: this.state.dataQR.length * 250000 } );
         // this.setState( { sell: this.state.dataQR.length * 250000, switchQRCode: false } );
       }
     } else {
-      Configuration.newAlert( 2, dataRespone.Pesan, 5000, "top" );
+      Configuration.newAlert( 3, dataRespone.Pesan, 5000, "top" );
     }
   }
 
@@ -204,7 +206,7 @@ export default class SendBeeScreen extends React.Component {
         }
       }
       if ( error > 0 ) {
-        Configuration.newAlert( 2, error + 'QR Code gagal di kirim, cek stup untuk ngenetahui mana data yang belum terkirim', 0, "bottom" );
+        Configuration.newAlert( 3, error + 'QR Code gagal di kirim, cek stup untuk ngenetahui mana data yang belum terkirim', 0, "bottom" );
         this.setState( {
           dataQR: [],
           sell: 0,

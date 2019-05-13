@@ -24,8 +24,8 @@ export default class LoginScreen extends React.Component {
     super( props );
     this.state = {
       isLoading: true,
-      username: '',
-      password: ''
+      username: '',// NAIMJABON
+      password: '',// naimjabon
     }
   }
 
@@ -37,6 +37,7 @@ export default class LoginScreen extends React.Component {
     let data = await Login.DataLogin( username, password );
     if ( data.Status == 0 ) {
       setTimeout( () => {
+        // this.props.navigation.navigate( 'HistoryWithdraw' );
         this.props.navigation.navigate( 'Home' );
       }, 1000 );
     } else {

@@ -59,6 +59,31 @@ export default class ProcessController extends React.Component {
     }
   }
 
+  async ListStupe ( username ) {
+    let url, body, errorResponse;
+    url = "https://www.klabee.com/api/index.php";
+    body = "a=ListStup" + "&username=" + username;
+    errorResponse = {
+      Status: 1,
+      Pesan: 'Internet tidak setabil mohon ulangi lagi'
+    };
+    try {
+      const response = await fetch( url, {
+        method: 'POST',
+        headers: new Headers( { 'Content-Type': 'application/x-www-form-urlencoded' } ),
+        body: body
+      } );
+      const responseJson = await response.json();
+      if ( responseJson ) {
+        return responseJson;
+      } else {
+        return errorResponse;
+      }
+    } catch ( error ) {
+      return errorResponse;
+    }
+  }
+
   async Balance ( username ) {
     let url, body, errorResponse;
     url = "https://www.klabee.com/api/index.php";
@@ -295,6 +320,32 @@ export default class ProcessController extends React.Component {
       "&name=" + setClientName +
       "&isitestimoni=" + setDescription +
       "&gambar=" + setImageUrl;
+    errorResponse = {
+      Status: 1,
+      Pesan: 'Internet tidak setabil mohon ulangi lagi'
+    };
+    try {
+      const response = await fetch( url, {
+        method: 'POST',
+        headers: new Headers( { 'Content-Type': 'application/x-www-form-urlencoded' } ),
+        body: body
+      } );
+      const responseJson = await response.json();
+      if ( responseJson ) {
+        return responseJson;
+      } else {
+        return errorResponse;
+      }
+    } catch ( error ) {
+      return errorResponse;
+    }
+  }
+
+  async HistoryWithdraw ( setUsername ) {
+    let url, body, errorResponse;
+    url = "https://www.klabee.com/api/index.php";
+    body = "a=HistoryWD" +
+      "&username=" + setUsername;
     errorResponse = {
       Status: 1,
       Pesan: 'Internet tidak setabil mohon ulangi lagi'

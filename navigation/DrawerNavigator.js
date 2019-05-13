@@ -28,6 +28,8 @@ import KlabeeModel from '../components/model/KlabeeModel';
 import RequestDepositScreen from '../screens/RequestDepositScreen';
 import { Icon } from 'expo';
 import TestimoniesScreen from '../screens/TestimoniesScreen';
+import UserListScreen from '../screens/UserListScreen';
+import HistoryWithdrawScreen from '../screens/HistoryWithdrawScreen';
 
 const CustomDrowerNavigator = ( props ) => {
   let username = KlabeeModel.prototype.getUsername();
@@ -142,6 +144,24 @@ export default createDrawerNavigator( {
     navigationOptions: {
       drawerLabel: 'Request Deposit',
       drawerIcon: ( { tintColor } ) => ( <Icon.FontAwesome name={ 'plus' } size={ 20 } style={ {
+        color: tintColor
+      } } /> )
+    }
+  },
+  UserList: {
+    screen: UserListScreen,
+    navigationOptions: {
+      drawerLabel: 'User List',
+      drawerIcon: ( { tintColor } ) => ( <Icon.FontAwesome name={ 'users' } size={ 20 } style={ {
+        color: tintColor
+      } } /> )
+    }
+  },
+  HistoryWithdraw: {
+    screen: HistoryWithdrawScreen,
+    navigationOptions: {
+      drawerLabel: 'History Withdraw',
+      drawerIcon: ( { tintColor } ) => ( <Icon.FontAwesome name={ 'history' } size={ 20 } style={ {
         color: tintColor
       } } /> )
     }
