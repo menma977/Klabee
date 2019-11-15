@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".RequestDeposit">
+
+    <LinearLayout
+            android:layout_margin="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <EditText
+                android:id="@+id/Total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="100dp"
+                android:autofillHints="@string/total_nominal"
+                android:defaultFocusHighlightEnabled="true"
+                android:drawableStart="@drawable/ic_local_atm_black"
+                android:ems="10"
+                android:hint="@string/total_nominal"
+                android:inputType="textPersonName" />
+
+        <Button
+                android:id="@+id/Send"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="30dp"
+                android:background="@color/Primary"
+                android:textColor="@color/textSecondary"
+                android:text="@string/send" />
+
+    </LinearLayout>
+
+</ScrollView>

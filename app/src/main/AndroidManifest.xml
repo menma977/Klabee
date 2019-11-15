@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:dist="http://schemas.android.com/apk/distribution"
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.klabee">
+
+    <dist:module dist:instant="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:networkSecurityConfig="@xml/network_security_config"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppThemeNoActionBar"
+            tools:ignore="GoogleAppIndexingWarning"
+            tools:targetApi="n">
+        <activity android:name=".UserExp"></activity>
+        <activity
+                android:name=".HistoryWithdraw"
+                android:label="History Withdraw"
+                android:theme="@style/AppTheme" />
+        <activity
+                android:name=".UserList"
+                android:label="List User Dan Stup"
+                android:theme="@style/AppTheme" />
+        <activity
+                android:name=".RequestDeposit"
+                android:label="Permintaan Request Deposit"
+                android:theme="@style/AppTheme" />
+        <activity
+                android:name=".AddClient"
+                android:label="Tambah Member"
+                android:theme="@style/AppTheme" />
+        <activity android:name=".SendBee" />
+        <activity
+                android:name=".BuyBack"
+                android:label="Buy Back"
+                android:theme="@style/AppTheme" />
+        <activity
+                android:name=".QRCodeCamera"
+                android:label="QR Camera"
+                android:theme="@style/AppTheme" />
+        <activity
+                android:name=".EmptyStup"
+                android:label="Stup Kosong"
+                android:theme="@style/AppTheme" />
+        <activity
+                android:name=".SealBroken"
+                android:label="@string/seal_broken"
+                android:theme="@style/AppTheme" />
+        <activity
+                android:name=".CheckStup"
+                android:label="@string/check_stup"
+                android:theme="@style/AppTheme" />
+        <activity
+                android:name=".BottomNavigation"
+                android:label="@string/title_activity_bottom_navigation"
+                android:theme="@style/AppThemeNoActionBar" />
+        <activity
+                android:name=".MainActivity"
+                android:theme="@style/AppThemeNoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">KLABEE</string>
+    <string name="title_activity_bottom_navigation">BottomNavigation</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Menu</string>
+    <string name="title_logout">Logout</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="idr">Rp0</string>
+    <string name="saldo">Saldo</string>
+    <string name="bonus">Bonus</string>
+    <string name="username">username</string>
+    <string name="check_stup">Check Stup</string>
+    <string name="seal_broken">Segel Rusak</string>
+    <string name="empty_stup">Stup Kosong</string>
+    <string name="qr_code">QR Code</string>
+    <string name="kirim_qr_code">Kirim QR Code</string>
+    <string name="qr">QR</string>
+    <string name="buy_back">Buy Back</string>
+    <string name="camera">Camera</string>
+    <string name="sell_stup">Penjualan Stup</string>
+    <string name="image_from_agent">Image From Agent</string>
+    <string name="password">Password</string>
+    <string name="full_address">Alamat Lengkap</string>
+    <string name="email">Email</string>
+    <string name="phone">No HP</string>
+    <string name="bank">Bank</string>
+    <string name="number_bank">Nomor Rekening</string>
+    <string name="add_member">Tambah Member</string>
+    <string name="register">Daftarkan</string>
+    <string name="request_deposit">Request Deposit</string>
+    <string name="list_user">List User</string>
+    <string name="history_withdraw">History Withdraw</string>
+    <string name="testimonies">Test Timoni</string>
+    <string name="password_confirmation">Password Confirmation</string>
+    <string name="full_name">Nama Lekap</string>
+    <string name="total_nominal">Total Nominal</string>
+    <string name="send">Kirim</string>
+    <string name="total_stup">Total Stup</string>
+    <string name="cek_qr">Cek QR</string>
+</resources>

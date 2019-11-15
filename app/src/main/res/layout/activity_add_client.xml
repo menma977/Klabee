@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AddClient">
+
+    <LinearLayout
+            android:layout_margin="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <EditText
+                android:id="@+id/Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:autofillHints="@string/full_name"
+                android:defaultFocusHighlightEnabled="true"
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:ems="10"
+                android:hint="@string/full_name"
+                android:inputType="textPersonName"
+                android:nextFocusDown="@id/Username"
+                android:nextFocusForward="@id/Username" />
+
+        <EditText
+                android:id="@+id/Username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:autofillHints="@string/username"
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:ems="10"
+                android:hint="@string/username"
+                android:inputType="textPersonName"
+                android:nextFocusDown="@id/Password"
+                android:nextFocusForward="@id/Password" />
+
+        <EditText
+                android:id="@+id/Password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:autofillHints="@string/password"
+                android:drawableStart="@drawable/ic_security_black_24dp"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:nextFocusDown="@id/PasswordConfirmation"
+                android:nextFocusForward="@id/PasswordConfirmation" />
+
+        <EditText
+                android:id="@+id/PasswordConfirmation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:autofillHints="@string/password_confirmation"
+                android:drawableStart="@drawable/ic_security_black_24dp"
+                android:ems="10"
+                android:hint="@string/password_confirmation"
+                android:inputType="textPassword"
+                android:nextFocusDown="@id/Address"
+                android:nextFocusForward="@id/Address" />
+
+        <EditText
+                android:id="@+id/Address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/full_address"
+                android:drawableStart="@drawable/ic_add_location_black_24dp"
+                android:ems="10"
+                android:hint="@string/full_address"
+                android:inputType="textPostalAddress"
+                android:nextFocusDown="@id/Email"
+                android:nextFocusForward="@id/Email" />
+
+        <EditText
+                android:id="@+id/Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:autofillHints="@string/email"
+                android:drawableStart="@drawable/ic_email_black_24dp"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textWebEmailAddress"
+                android:nextFocusDown="@id/Phone"
+                android:nextFocusForward="@id/Phone" />
+
+        <EditText
+                android:id="@+id/Phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:autofillHints="@string/phone"
+                android:drawableStart="@drawable/ic_phone_android_black_24dp"
+                android:ems="10"
+                android:hint="@string/phone"
+                android:inputType="phone"
+                android:nextFocusDown="@id/Bank"
+                android:nextFocusForward="@id/Bank" />
+
+        <EditText
+                android:id="@+id/Bank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:autofillHints="@string/bank"
+                android:drawableStart="@drawable/ic_account_balance_black_24dp"
+                android:ems="10"
+                android:hint="@string/bank"
+                android:inputType="text"
+                android:nextFocusDown="@id/NumberBank"
+                android:nextFocusForward="@id/NumberBank" />
+
+        <EditText
+                android:id="@+id/NumberBank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:autofillHints="@string/number_bank"
+                android:drawableStart="@drawable/ic_account_balance_black_24dp"
+                android:ems="10"
+                android:hint="@string/number_bank"
+                android:inputType="number"
+                android:nextFocusDown="@id/Register"
+                android:nextFocusForward="@id/Register" />
+
+        <Button
+                android:id="@+id/Register"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/Primary"
+                android:textColor="@color/textSecondary"
+                android:text="@string/register" />
+
+    </LinearLayout>
+
+</ScrollView>
