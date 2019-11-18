@@ -47,7 +47,7 @@ class SendBeeController : AsyncTask<JSONObject, Void, JSONObject>() {
             } else {
                 JSONObject("{Status: 1, Pesan: 'internet tidak setabil'}")
             }
-        }catch (e : Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
             return JSONObject("{Status: 1, Pesan: 'internet tidak setabil'}")
         }

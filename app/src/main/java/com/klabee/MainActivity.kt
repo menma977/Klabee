@@ -22,13 +22,15 @@ class MainActivity : AppCompatActivity() {
         val userSession = UserSession(this)
         progressBarController.openDialog()
 
+        doRequestPermission()
+
         if (userSession.getString("username").toString().isNotEmpty() && userSession.getString("password").toString().isNotEmpty()) {
             User.username = userSession.getString("username").toString()
             User.password = userSession.getString("password").toString()
             if (User.username.isNotEmpty()) {
                 val loginController = LoginController().execute()
                 val response = loginController.get()
-                if (response["Status"].toString() =="0") {
+                if (response["Status"].toString() == "0") {
                     val goTo = Intent(this, BottomNavigation::class.java)
                     startActivity(goTo)
                     finish()
@@ -77,6 +79,46 @@ class MainActivity : AppCompatActivity() {
                 startActivity(goTo)
                 finish()
             }
+        }
+    }
+
+    @SuppressLint("InlinedApi")
+    private fun doRequestPermission() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.FOREGROUND_SERVICE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.FOREGROUND_SERVICE
+                ), 100
+            )
         }
     }
 }

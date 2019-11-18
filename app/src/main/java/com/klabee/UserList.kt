@@ -136,22 +136,22 @@ class UserList : AppCompatActivity() {
         barcode.text = "Barcode"
         barcode.layoutParams = optionHeader
         tableRow0.addView(barcode)
-        val dateOne = TextView(this)
-        dateOne.text = "Bulan 1"
-        dateOne.layoutParams = optionHeader
-        tableRow0.addView(dateOne)
-        val dateTow = TextView(this)
-        dateTow.text = "Bulan 2"
-        dateTow.layoutParams = optionHeader
-        tableRow0.addView(dateTow)
-        val dateTree = TextView(this)
-        dateTree.text = "Bulan 3"
-        dateTree.layoutParams = optionHeader
-        tableRow0.addView(dateTree)
         val firstDate = TextView(this)
         firstDate.text = "Tanggal Awal"
         firstDate.layoutParams = optionHeader
         tableRow0.addView(firstDate)
+//        val dateOne = TextView(this)
+//        dateOne.text = "Bulan 1"
+//        dateOne.layoutParams = optionHeader
+//        tableRow0.addView(dateOne)
+//        val dateTow = TextView(this)
+//        dateTow.text = "Bulan 2"
+//        dateTow.layoutParams = optionHeader
+//        tableRow0.addView(dateTow)
+        val dateTree = TextView(this)
+        dateTree.text = "Panen"
+        dateTree.layoutParams = optionHeader
+        tableRow0.addView(dateTree)
 
         tableLayout.addView(tableRow0)
 
@@ -177,25 +177,25 @@ class UserList : AppCompatActivity() {
                     barcodeLoop.layoutParams = optionItem
                     tableRow.addView(barcodeLoop)
 
-                    val dateOneLoop = TextView(this)
-                    dateOneLoop.text = response.getJSONObject(values)["Bln1"].toString()
-                    dateOneLoop.layoutParams = optionItem
-                    tableRow.addView(dateOneLoop)
+                    val firstDateLoop = TextView(this)
+                    firstDateLoop.text = response.getJSONObject(values)["TglAwal"].toString()
+                    firstDateLoop.layoutParams = optionItem
+                    tableRow.addView(firstDateLoop)
 
-                    val dateTowLoop = TextView(this)
-                    dateTowLoop.text = response.getJSONObject(values)["Bln2"].toString()
-                    dateTowLoop.layoutParams = optionItem
-                    tableRow.addView(dateTowLoop)
+//                    val dateOneLoop = TextView(this)
+//                    dateOneLoop.text = response.getJSONObject(values)["Bln1"].toString()
+//                    dateOneLoop.layoutParams = optionItem
+//                    tableRow.addView(dateOneLoop)
+//
+//                    val dateTowLoop = TextView(this)
+//                    dateTowLoop.text = response.getJSONObject(values)["Bln2"].toString()
+//                    dateTowLoop.layoutParams = optionItem
+//                    tableRow.addView(dateTowLoop)
 
                     val dateTreeLoop = TextView(this)
                     dateTreeLoop.text = response.getJSONObject(values)["Bln3"].toString()
                     dateTreeLoop.layoutParams = optionItem
                     tableRow.addView(dateTreeLoop)
-
-                    val firstDateLoop = TextView(this)
-                    firstDateLoop.text = response.getJSONObject(values)["TglAwal"].toString()
-                    firstDateLoop.layoutParams = optionItem
-                    tableRow.addView(firstDateLoop)
 
                     tableLayout.addView(tableRow)
                 }
