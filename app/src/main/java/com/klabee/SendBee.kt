@@ -13,7 +13,6 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.widget.*
 import com.google.zxing.Result
@@ -294,9 +293,6 @@ class SendBee : AppCompatActivity(), ZXingScannerView.ResultHandler {
                     balance.text = User.balance
                     arrayListQR.add("-${p0?.text.toString()}")
                     arrayListQRDump.add(p0?.text.toString())
-//                    val arrayAdapter: ArrayAdapter<String> =
-//                        ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayListQR)
-//                    listQR.adapter = arrayAdapter
                     generateText()
                     Handler().postDelayed({
                         runOnUiThread {
